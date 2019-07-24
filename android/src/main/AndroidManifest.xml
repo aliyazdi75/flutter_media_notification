@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.tarafdari.flutter_media_notification">
+    <application>
+        <receiver android:name="NotificationReturnSlot"></receiver>
+    </application>
+</manifest>
