@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.3
+## 1.0.0
 
 * some code improvement
 * adding readme.md
