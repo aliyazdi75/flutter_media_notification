@@ -2,5 +2,12 @@
   package="com.tarafdari.flutter_media_notification">
     <application>
         <receiver android:name="NotificationReturnSlot"></receiver>
+        <service android:name=".LocalService" />
+<!--        <activity android:name=".LocalService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
+<!--        </activity>-->
     </application>
 </manifest>

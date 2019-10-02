@@ -30,6 +30,7 @@ public class FlutterMediaNotificationPlugin implements MethodCallHandler {
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     switch (call.method) {
+      // todo get channelid and cover
       case "showNotification":
         final String title = call.argument("title");
         final String author = call.argument("author");

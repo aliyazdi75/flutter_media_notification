@@ -21,7 +21,7 @@ public class NotificationReturnSlot extends BroadcastReceiver {
                 String author = intent.getStringExtra("author");
                 String action = intent.getStringExtra("action");
 
-                FlutterMediaNotificationPlugin.showNotification(title, author, action.equals("play"));
+//                FlutterMediaNotificationPlugin.showNotification(title, author, action.equals("play"));
                 FlutterMediaNotificationPlugin.callEvent(action);
                 break;
             case "select":
