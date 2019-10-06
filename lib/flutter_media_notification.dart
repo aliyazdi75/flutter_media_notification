@@ -26,7 +26,8 @@ class MediaNotification {
   /// To show your media notification you have to pass [title] and
   /// [author] of music. If music is pausing you have to set
   /// [isPlaying] false.
-  static Future showNotification(title, author, {isPlaying = true}) async {
+  static Future showNotification(
+      { title = '', author = '', isPlaying = true}) async {
     try {
       final Map<String, dynamic> params = <String, dynamic>{
         'title': title,
