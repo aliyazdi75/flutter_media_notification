@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NotificationReturnSlot extends BroadcastReceiver {
 
     @Override
@@ -19,10 +22,14 @@ public class NotificationReturnSlot extends BroadcastReceiver {
             case "toggle":
                 String title = intent.getStringExtra("title");
                 String author = intent.getStringExtra("author");
-                String action = intent.getStringExtra("action");
+                boolean play = intent.getBooleanExtra("play",true);
 
-//                FlutterMediaNotificationPlugin.showNotification(title, author, action.equals("play"));
-                FlutterMediaNotificationPlugin.callEvent(action);
+                if(play)
+                    FlutterMediaNotificationPlugin.callEvent("play");
+                else
+                    FlutterMediaNotificationPlugin.callEvent("pause");
+
+                FlutterMediaNotificationPlugin.showNotification(title, author,play);
                 break;
             case "select":
                 Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);

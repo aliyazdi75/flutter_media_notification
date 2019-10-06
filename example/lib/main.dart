@@ -8,14 +8,12 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => new _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class _MyAppState extends State<MyApp> {
   String status = 'hidden';
-  AppLifecycleState _appLifecycleState;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
 
     MediaNotification.setListener('pause', () {
       setState(() => status = 'pause');
@@ -33,26 +31,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    print('killed');
-    MediaNotification.hideNotification();
-    super.dispose();
-  }
-
-  @override
-  Future<Null> didChangeAppLifecycleState(AppLifecycleState state) async {
-    switch (state) {
-      case AppLifecycleState.inactive:
-      case AppLifecycleState.paused:
-      case AppLifecycleState.suspending:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-    }
-    print(state);
-  }
-
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold(
@@ -66,21 +44,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               FlatButton(
-                child: Text('Show notification'),
-                onPressed: () => MediaNotification.showNotification(
-                    title: 'Title', author: 'Song author'),
-              ),
+                  child: Text('Show notification'),
+                  onPressed: () {
+                    MediaNotification.showNotification(
+                        title: 'Title', author: 'Song author');
+                    setState(() => status = 'play');
+                  }),
               FlatButton(
-                child: Text('Update notification'),
-                onPressed: () => MediaNotification.showNotification(
-                    title: 'New Title',
-                    author: 'New Song author',
-                    isPlaying: false),
-              ),
+                  child: Text('Update notification'),
+                  onPressed: () {
+                    MediaNotification.showNotification(
+                        title: 'New Title',
+                        author: 'New Song author',
+                        isPlaying: false);
+                    setState(() => status = 'pause');
+                  }),
               FlatButton(
-                child: Text('Hide notification'),
-                onPressed: MediaNotification.hideNotification,
-              ),
+                  child: Text('Hide notification'),
+                  onPressed: () {
+                    MediaNotification.hideNotification();
+                    setState(() => status = 'hidden');
+                  }),
               Text('Status: ' + status)
             ],
           ),
