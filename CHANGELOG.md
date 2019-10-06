@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.5
+
+* adding media style notification
+* notification now is a service
+
 ## 1.0.0
 
 * some code improvement
