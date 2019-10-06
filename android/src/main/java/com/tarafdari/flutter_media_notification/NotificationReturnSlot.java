@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class NotificationReturnSlot extends BroadcastReceiver {
 
     @Override

@@ -83,6 +83,7 @@ public class NotificationPanel extends Service {
                 .setContentTitle(title)
                 .setContentText(author)
                 .setSubText(title)
+                .setContentIntent(selectPendingIntent)
                 .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_stat_music_note))
                 .build();
 
@@ -124,10 +125,6 @@ public class NotificationPanel extends Service {
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        stopForeground(true);
-    }
-
-    public void asd() {
         stopForeground(true);
     }
 }
