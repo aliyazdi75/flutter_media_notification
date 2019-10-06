@@ -6,7 +6,7 @@ description: Flutter Media Notification is a package that you can use it to show
 homepage: https://github.com/aliyazdi75/flutter_media_notification
 
 environment:
-  sdk: ">=2.4.0 <3.0.0"
+  sdk: ">=2.5.0 <3.0.0"
 
 dependencies:
   flutter:
