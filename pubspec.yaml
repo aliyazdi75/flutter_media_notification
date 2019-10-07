@@ -2,7 +2,7 @@ name: flutter_media_notification
 version: 1.2.6
 
 author: aliyazdi75 <ma.yazdi75@gmail.com>
-description: Flutter Media Notification is a package that you can use it to show you media notification and control streaming media beyond your app.
+description: Flutter Media Notification helps you to show your media notification and control streaming media beyond your flutter app.
 homepage: https://github.com/aliyazdi75/flutter_media_notification
 
 environment:
