@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.6
+
+* startForegroundService is replaced by registrar.context().startService caused a bug
+
 ## 1.2.5
 
 * adding media style notification

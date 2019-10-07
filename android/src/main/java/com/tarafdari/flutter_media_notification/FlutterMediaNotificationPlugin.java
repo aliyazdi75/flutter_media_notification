@@ -68,7 +68,7 @@ public class FlutterMediaNotificationPlugin implements MethodCallHandler {
     serviceIntent.putExtra("author", author);
     serviceIntent.putExtra("isPlaying", play);
 
-    ContextCompat.startForegroundService(registrar.context(), serviceIntent);
+    registrar.context().startService(serviceIntent);
   }
 
   private void hideNotification() {
