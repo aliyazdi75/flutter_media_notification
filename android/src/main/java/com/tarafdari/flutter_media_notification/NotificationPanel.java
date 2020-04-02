@@ -16,9 +16,10 @@ import androidx.media.session.MediaButtonReceiver;
 
 
 public class NotificationPanel extends Service {
-    public static int NOTIFICATION_ID = 1;
-    public  static final String CHANNEL_ID = "flutter_media_notification";
-    public  static final String MEDIA_SESSION_TAG = "flutter_media_notification";
+    private static final int NOTIFICATION_ID = 1;
+    private static final String CHANNEL_ID = "flutter_media_notification/channel";
+    private static final String CHANNEL_NAME = "Foreground Service Notification Channel";
+    private static final String MEDIA_SESSION_TAG = "flutter_media_notification/mediasession";
 
     @Override
     public void onCreate() {
@@ -40,8 +41,8 @@ public class NotificationPanel extends Service {
         int iconPlayPause = R.drawable.baseline_play_arrow_black_48;
         String titlePlayPause = "pause";
         if(isPlaying){
-            iconPlayPause=R.drawable.baseline_pause_black_48;
-            titlePlayPause="play";
+            iconPlayPause = R.drawable.baseline_pause_black_48;
+            titlePlayPause = "play";
         }
 
         Intent toggleIntent = new Intent(this, NotificationReturnSlot.class)
@@ -110,7 +111,7 @@ public class NotificationPanel extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
-                    "Foreground Service Channel",
+                    CHANNEL_NAME,
                     NotificationManager.IMPORTANCE_LOW
             );
             serviceChannel.setDescription("flutter_media_notification");

@@ -9,6 +9,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 /** FlutterMediaNotificationPlugin */
@@ -27,12 +28,12 @@ public class FlutterMediaNotificationPlugin implements MethodCallHandler {
   }
 
   @Override
-  public void onMethodCall(MethodCall call, Result result) {
+  public void onMethodCall(MethodCall call, @NonNull Result result) {
     switch (call.method) {
       case "showNotification":
         final String title = call.argument("title");
         final String author = call.argument("author");
-        final boolean isPlaying = call.argument("isPlaying");
+        final Boolean isPlaying = call.argument("isPlaying");
         showNotification(title, author, isPlaying);
         result.success(null);
         break;
@@ -46,7 +47,6 @@ public class FlutterMediaNotificationPlugin implements MethodCallHandler {
   }
 
   static void callEvent(String event) {
-
     FlutterMediaNotificationPlugin.channel.invokeMethod(event, null, new Result() {
       @Override
       public void success(Object o) {
@@ -61,8 +61,7 @@ public class FlutterMediaNotificationPlugin implements MethodCallHandler {
     });
   }
 
-  static void showNotification(String title, String author, boolean play) {
-
+  static void showNotification(String title, String author, Boolean play) {
     Intent serviceIntent = new Intent(registrar.context(), NotificationPanel.class);
     serviceIntent.putExtra("title", title);
     serviceIntent.putExtra("author", author);
