@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.media.session.MediaButtonReceiver;
 
@@ -32,7 +33,8 @@ public class NotificationPanel extends Service {
         String title = intent.getStringExtra("title");
         String author = intent.getStringExtra("author");
 
-        createNotificationChannel();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            createNotificationChannel();
 
 
         MediaSessionCompat mediaSession = new MediaSessionCompat(this, MEDIA_SESSION_TAG);
@@ -69,7 +71,8 @@ public class NotificationPanel extends Service {
         PendingIntent selectPendingIntent = PendingIntent.getBroadcast(this, 0, selectIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 //        MediaButtonReceiver.handleIntent(mediaSession, selectIntent);
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setOngoing(true)
                 .addAction(R.drawable.baseline_skip_previous_black_48, "prev", pendingPrevIntent)
                 .addAction(iconPlayPause, titlePlayPause, pendingToggleIntent)
                 .addAction(R.drawable.baseline_skip_next_black_48, "next", pendingNextIntent)
@@ -85,8 +88,12 @@ public class NotificationPanel extends Service {
                 .setContentText(author)
                 .setSubText(title)
                 .setContentIntent(selectPendingIntent)
-                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_stat_music_note))
-                .build();
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_stat_music_note));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setCategory(Notification.CATEGORY_SERVICE);
+        }
+
+        Notification notification = notificationBuilder.build();
 
         startForeground(NOTIFICATION_ID, notification);
         if(!isPlaying) {
@@ -107,22 +114,24 @@ public class NotificationPanel extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel serviceChannel = new NotificationChannel(
-                    CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_LOW
-            );
-            serviceChannel.setDescription("flutter_media_notification");
-            serviceChannel.setShowBadge(false);
-            serviceChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        int importance = NotificationManager.IMPORTANCE_LOW;
+        NotificationChannel serviceChannel = new NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                importance
+        );
+        serviceChannel.setImportance(importance);
+        serviceChannel.setDescription("flutter_media_notification");
+        serviceChannel.setShowBadge(false);
+        serviceChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            assert manager != null;
-            manager.createNotificationChannel(serviceChannel);
-        }
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        assert manager != null;
+        manager.createNotificationChannel(serviceChannel);
     }
+
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {

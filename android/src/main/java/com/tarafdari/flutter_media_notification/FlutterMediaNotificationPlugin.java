@@ -8,6 +8,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import android.content.Intent;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -46,7 +47,7 @@ public class FlutterMediaNotificationPlugin implements MethodCallHandler {
     }
   }
 
-  static void callEvent(String event) {
+  static void callEvent(@NonNull String event) {
     FlutterMediaNotificationPlugin.channel.invokeMethod(event, null, new Result() {
       @Override
       public void success(Object o) {
@@ -67,7 +68,11 @@ public class FlutterMediaNotificationPlugin implements MethodCallHandler {
     serviceIntent.putExtra("author", author);
     serviceIntent.putExtra("isPlaying", play);
 
-    registrar.context().startService(serviceIntent);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      registrar.context().startForegroundService(serviceIntent);
+    } else {
+      registrar.context().startService(serviceIntent);
+    }
   }
 
   private void hideNotification() {
