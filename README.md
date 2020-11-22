@@ -1,3 +1,5 @@
+## (Not maintain anymor. You can use [`audio_service`](https://pub.dev/packages/audio_service) instead.)
+
 Flutter Media Notification
 ========
 
@@ -6,10 +8,6 @@ Flutter Media Notification
 [![GitHub Forks](https://img.shields.io/github/forks/aliyazdi75/flutter_media_notification.svg)](https://github.com/aliyazdi75/flutter_media_notification/network)
 [![GitHub Stars](https://img.shields.io/github/stars/aliyazdi75/flutter_media_notification.svg)](https://github.com/aliyazdi75/flutter_media_notification/stargazers)
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/aliyazdi75/flutter_media_notification/master/LICENSE)
-
-### IOS not implemented
---------
-I'm looking for mac to develop ios side, so it takes time.
 
 Flutter Media Notification helps you to show your media notification and control streaming media beyond your flutter app.
 
